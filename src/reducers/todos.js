@@ -1,22 +1,34 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../constants/ActionTypes'
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../constants/ActionTypes'
 
 const initialState = [
   {
-    text: 'Use Redux',
+    title: 'Use Redux',
     completed: false,
-    id: 0
+    id: 0,
+    owner: 'chip.irek@gmail.com'
+  },
+  {
+    title: 'Mow lawn',
+    completed: true,
+    id: 1,
+    owner: 'chip.irek@gmail.com'
   }
+
 ]
 
 export default function todos(state = initialState, action) {
+
   switch (action.type) {
+
     case ADD_TODO:
+      //console.log("reducers/todos.ds action.title=" + action.title)
       return [
         ...state,
         {
           id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
           completed: false,
-          text: action.text
+          title: action.title,
+          owner: 'chip.irek@gmail.com'
         }
       ]
 
@@ -25,10 +37,11 @@ export default function todos(state = initialState, action) {
         todo.id !== action.id
       )
 
-    case EDIT_TODO:
+    case UPDATE_TODO:
+    //console.log("reducers/todos.ds action.title=" + action.title)
       return state.map(todo =>
         todo.id === action.id ?
-          { ...todo, text: action.text } :
+          { ...todo, title: action.title } :
           todo
       )
 

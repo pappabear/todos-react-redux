@@ -6,7 +6,7 @@ import TodoTextInput from './TodoTextInput'
 export default class TodoItem extends Component {
   static propTypes = {
     todo: PropTypes.object.isRequired,
-    editTodo: PropTypes.func.isRequired,
+    updateTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
     completeTodo: PropTypes.func.isRequired
   }
@@ -19,24 +19,27 @@ export default class TodoItem extends Component {
     this.setState({ editing: true })
   }
 
-  handleSave = (id, text) => {
-    if (text.length === 0) {
+  handleSave = (id, title) => {
+    if (title.length === 0) {
       this.props.deleteTodo(id)
     } else {
-      this.props.editTodo(id, text)
+      this.props.updateTodo(id, title)
     }
     this.setState({ editing: false })
   }
 
   render() {
     const { todo, completeTodo, deleteTodo } = this.props
-
+    
     let element
+
     if (this.state.editing) {
+      //console.log("ok, i am showing the edit box")
+      //console.log("todo.title=" + todo.title)
       element = (
-        <TodoTextInput text={todo.text}
+        <TodoTextInput text={todo.title}
                        editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)} />
+                       onSave={(title) => this.handleSave(todo.id, title)} />
       )
     } else {
       element = (
@@ -46,7 +49,7 @@ export default class TodoItem extends Component {
                  checked={todo.completed}
                  onChange={() => completeTodo(todo.id)} />
           <label onDoubleClick={this.handleDoubleClick}>
-            {todo.text}
+            {todo.title}
           </label>
           <button className="destroy"
                   onClick={() => deleteTodo(todo.id)} />

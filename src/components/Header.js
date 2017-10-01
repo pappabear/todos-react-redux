@@ -7,9 +7,9 @@ export default class Header extends Component {
     addTodo: PropTypes.func.isRequired
   }
 
-  handleSave = text => {
-    if (text.length !== 0) {
-      this.props.addTodo(text)
+  handleSave = title => {
+    if (title.length !== 0) {
+      this.props.addTodo(title)
     }
   }
 

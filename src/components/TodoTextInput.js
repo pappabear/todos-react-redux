@@ -5,28 +5,29 @@ import classnames from 'classnames'
 export default class TodoTextInput extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
-    text: PropTypes.string,
+    title: PropTypes.string,
     placeholder: PropTypes.string,
     editing: PropTypes.bool,
     newTodo: PropTypes.bool
   }
 
   state = {
-    text: this.props.text || ''
+    title: this.props.title || ''
   }
 
   handleSubmit = e => {
-    const text = e.target.value.trim()
+    const title = e.target.value.trim()
     if (e.which === 13) {
-      this.props.onSave(text)
+      this.props.onSave(title)
       if (this.props.newTodo) {
-        this.setState({ text: '' })
+        this.setState({ title: '' })
       }
     }
   }
 
   handleChange = e => {
-    this.setState({ text: e.target.value })
+    console.log("e.target.value=" + e.target.value)
+    this.setState({ title: e.target.value })
   }
 
   handleBlur = e => {
@@ -45,7 +46,7 @@ export default class TodoTextInput extends Component {
         type="text"
         placeholder={this.props.placeholder}
         autoFocus="true"
-        value={this.state.text}
+        value={this.state.title}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onKeyDown={this.handleSubmit} />
