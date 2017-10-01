@@ -37,9 +37,9 @@ export default class TodoItem extends Component {
       //console.log("ok, i am showing the edit box")
       //console.log("todo.title=" + todo.title)
       element = (
-        <TodoTextInput text={todo.title}
+        <TodoTextInput title={todo.title}
                        editing={this.state.editing}
-                       onSave={(title) => this.handleSave(todo.id, title)} />
+                       onSave={(text) => this.handleSave(todo.id, text)} />
       )
     } else {
       element = (
