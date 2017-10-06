@@ -6,8 +6,8 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
-  [SHOW_ACTIVE]: todo => !todo.completed,
-  [SHOW_COMPLETED]: todo => todo.completed
+  [SHOW_ACTIVE]: todo => !todo.complete,
+  [SHOW_COMPLETED]: todo => todo.complete
 }
 
 export default class MainSection extends Component {
@@ -60,7 +60,7 @@ export default class MainSection extends Component {
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter])
     const completedCount = todos.reduce((count, todo) =>
-      todo.completed ? count + 1 : count,
+      todo.complete ? count + 1 : count,
       0
     )
 
