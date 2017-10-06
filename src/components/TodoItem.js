@@ -8,7 +8,7 @@ export default class TodoItem extends Component {
     todo: PropTypes.object.isRequired,
     updateTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    completeTodo: PropTypes.func.isRequired
+    toggleTodo: PropTypes.func.isRequired
   }
 
   state = {
@@ -29,13 +29,11 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const { todo, toggleTodo, deleteTodo } = this.props
     
     let element
 
     if (this.state.editing) {
-      //console.log("ok, i am showing the edit box")
-      //console.log("todo.title=" + todo.title)
       element = (
         <TodoTextInput title={todo.title}
                        editing={this.state.editing}
@@ -47,7 +45,7 @@ export default class TodoItem extends Component {
           <input className="toggle"
                  type="checkbox"
                  checked={todo.complete}
-                 onChange={() => completeTodo(todo.id)} />
+                 onChange={() => toggleTodo(todo.id, !todo.complete)} />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.title}
           </label>

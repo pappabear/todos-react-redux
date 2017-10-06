@@ -1,11 +1,10 @@
-import { ADD_TODO, DELETE_TODO, UPDATE_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../constants/ActionTypes'
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO, TOGGLE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../constants/ActionTypes'
 
 export default function todos(state = [], action) {
 
   switch (action.type) {
 
     case ADD_TODO:
-      //console.log("reducers/todos.ds action.title=" + action.title)
       return [
         ...state,
         {
@@ -22,14 +21,14 @@ export default function todos(state = [], action) {
       )
 
     case UPDATE_TODO:
-    //console.log("reducers/todos.ds action.title=" + action.title)
       return state.map(todo =>
         todo.id === action.id ?
           { ...todo, title: action.title } :
           todo
       )
 
-    case COMPLETE_TODO:
+    case TOGGLE_TODO:
+      console.log("reducers/todos.ds TOGGLE_TODO=" + action.id)
       return state.map(todo =>
         todo.id === action.id ?
           { ...todo, complete: !todo.complete } :
@@ -47,7 +46,7 @@ export default function todos(state = [], action) {
       return state.filter(todo => todo.complete === false)
 
     case 'GET_TODO_DATA_RECEIVED':
-      console.log('GET_TODO_DATA_RECEIVED')
+      //console.log('GET_TODO_DATA_RECEIVED')
       return action.data
   
     default:
