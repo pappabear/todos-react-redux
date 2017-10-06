@@ -73,7 +73,19 @@ const dataService = store => next => action => {
         })
         break
 
-
+    case 'DELETE_TODO':
+        //console.log('data service TOGGLE_TODO called but empty right now')
+        //console.log(action.id + ' ' + action.complete)
+        request
+        .delete('http://localhost:3001/todos/' + action.id)
+        .end(function(err, res){
+          if (err || !res.ok) {
+            console.log('Oh no! error ' + err);
+          } else {
+            console.log('SuperAgent is happy, and API call was successful!  ' + JSON.stringify(res.body));
+          }
+        })
+        break
 
     /*
     Do nothing if the action does not interest us
