@@ -6,3 +6,4 @@ export const updateTodo = (id, title) => ({ type: types.UPDATE_TODO, id, title }
 export const completeTodo = id => ({ type: types.COMPLETE_TODO, id })
 export const completeAll = () => ({ type: types.COMPLETE_ALL })
 export const clearCompleted = () => ({ type: types.CLEAR_COMPLETED })
+export const getTodos = () => ({ type: types.GET_TODOS })

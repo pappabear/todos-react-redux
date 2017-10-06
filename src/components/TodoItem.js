@@ -46,7 +46,7 @@ export default class TodoItem extends Component {
         <div className="view">
           <input className="toggle"
                  type="checkbox"
-                 checked={todo.completed}
+                 checked={todo.complete}
                  onChange={() => completeTodo(todo.id)} />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.title}
@@ -59,7 +59,7 @@ export default class TodoItem extends Component {
 
     return (
       <li className={classnames({
-        completed: todo.completed,
+        completed: todo.complete,
         editing: this.state.editing
       })}>
         {element}

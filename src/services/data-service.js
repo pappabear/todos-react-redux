@@ -16,24 +16,26 @@ const dataService = store => next => action => {
         .get('http://localhost:3001/todos')
         .end((err, res) => {
             if (err) {
-            /*
-            in case there is any error, dispatch an action containing the error
-            */
-            return next({
-                type: 'GET_TODO_DATA_ERROR',
-                err
-            })
+              /*
+              in case there is any error, dispatch an action containing the error
+              */
+              return next({
+                  type: 'GET_TODO_DATA_ERROR',
+                  err
+              })
             }
+
             //console.log('res=' + res)
             //console.log('res.text=' + res.text)
             const data = JSON.parse(res.text)
+
             /*
             Once data is received, dispatch an action telling the application
             that data was received successfully, along with the parsed data
             */
             next({
-            type: 'GET_TODO_DATA_RECEIVED',
-            data
+              type: 'GET_TODO_DATA_RECEIVED',
+              data
             })
         })
         break
@@ -47,9 +49,9 @@ const dataService = store => next => action => {
         .set('Accept', 'application/json')
         .end(function(err, res){
           if (err || !res.ok) {
-            console.log('Oh no! error');
+            console.log('Oh no! error ' + err);
           } else {
-            console.log('api is happy!  ' + JSON.stringify(res.body));
+            console.log('SuperAgent is happy, and API call was successful!  ' + JSON.stringify(res.body));
           }
         })
         break
