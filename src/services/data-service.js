@@ -25,8 +25,6 @@ const dataService = store => next => action => {
               })
             }
 
-            //console.log('res=' + res)
-            //console.log('res.text=' + res.text)
             const data = JSON.parse(res.text)
 
             /*
@@ -41,7 +39,6 @@ const dataService = store => next => action => {
         break
 
     case 'ADD_TODO':
-        //console.log('data service ADD_TODO called but empty right now')
         request
         .post('http://localhost:3001/todos')
         .send({ title: action.title, complete: false, owner: 'chip.irek@gmail.com' })
@@ -56,9 +53,22 @@ const dataService = store => next => action => {
         })
         break
 
+    case 'UPDATE_TODO':
+      request
+      .put('http://localhost:3001/todos/' + action.id)
+      .send({ title:action.title })
+      //.set('X-API-Key', 'foobar')
+      .set('Accept', 'application/json')
+      .end(function(err, res){
+        if (err || !res.ok) {
+          console.log('Oh no! error ' + err);
+        } else {
+          console.log('SuperAgent is happy, and API call was successful!  ' + JSON.stringify(res.body));
+        }
+      })
+      break
+
     case 'TOGGLE_TODO':
-        //console.log('data service TOGGLE_TODO called but empty right now')
-        //console.log(action.id + ' ' + action.complete)
         request
         .put('http://localhost:3001/todos/' + action.id)
         .send({ complete: action.complete })
@@ -74,8 +84,6 @@ const dataService = store => next => action => {
         break
 
     case 'DELETE_TODO':
-        //console.log('data service TOGGLE_TODO called but empty right now')
-        //console.log(action.id + ' ' + action.complete)
         request
         .delete('http://localhost:3001/todos/' + action.id)
         .end(function(err, res){
