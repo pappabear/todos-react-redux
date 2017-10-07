@@ -87,6 +87,18 @@ const dataService = store => next => action => {
         })
         break
 
+    case 'CLEAR_COMPLETED':
+        request
+        .put('http://localhost:3001/todos/clear_complete')
+        .end(function(err, res){
+          if (err || !res.ok) {
+            console.log('Oh no! error ' + err);
+          } else {
+            console.log('SuperAgent is happy, and API call was successful!  ' + JSON.stringify(res.body));
+          }
+        })
+        break
+
     /*
     Do nothing if the action does not interest us
     */
